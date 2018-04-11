@@ -25,4 +25,4 @@ COPY scripts/mongod /usr/bin/mongod
 VOLUME /usr/lib/unifi/data
 EXPOSE  8443 8080 27117 3478/udp
 WORKDIR /usr/lib/unifi
-ENTRYPOINT ["/bin/bash", "/opt/clario/bin/init.sh"]
+ENTRYPOINT ["/bin/bash", "/usr/local/bin/init.sh"]
