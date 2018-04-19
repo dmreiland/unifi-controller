@@ -6,8 +6,8 @@ function log() {
 }
 
 function start_servers() {
-    mongod --journal --config /etc/mongod.conf & \
-    /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java -Xmx512M -jar /usr/lib/unifi/lib/ace.jar start
+    mv /usr/bin/mongod.sh /usr/bin/mongod && chmod a+x /usr/bin/mongod
+    java -Xmx512M -jar /usr/lib/unifi/lib/ace.jar start
 }
 
 # main
