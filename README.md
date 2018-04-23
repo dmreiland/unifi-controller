@@ -48,9 +48,24 @@ Long Term Support version of the UniFi controller (includes support for legacy d
 [![](https://images.microbadger.com/badges/image/dmreiland/unifi-controller:mongodb_3.6.svg)](http://microbadger.com/images/dmreiland/unifi-controller:mongodb_3.6 "Get your own image badge on microbadger.com")
 
 
+# Running
+
+It's a Docker container -- just run it like you would any other.
+
+    docker run -d \
+    -p 22:22 \
+    -p 8080:8080 \
+    -p 8443:8443 \
+    -p 37117:27117 \
+    -p 3478:3478/udp \
+    -v /local/data:/usr/lib/unifi/data \
+    --name unifi dmreiland/unifi-controller:latest
+
+We assume that you will be persisting your Mongo datastore outside of the container. Map it via ``-v``. Ports can be remapped to suit your environment.
+
 # Upgrading MongoDB
 
-You may not need to upgrade your MongoDB datastore, however, we did. Mongo's prescribed upgrade path is to step through __each__ release between the version you are on and the version you intend to upgrade to. In our case, we had to upgrade from 2.6 -> 3.0 -> 3.2 -> 3.4 -> 3.6.
+You may not need to upgrade your MongoDB datastore, however, we did. Mongo's prescribed upgrade path is to step through __each__ release between the version you are on and the version you intend to upgrade to. In our case, we had to upgrade from ``2.6 -> 3.0 -> 3.2 -> 3.4 -> 3.6``.
 
 Upgrading from 3.4 to 3.6 requires the ``featureCompatibilityVersion`` parameter to be set. The process for setting this parameter is:
 
@@ -67,7 +82,7 @@ Upgrading from 3.4 to 3.6 requires the ``featureCompatibilityVersion`` parameter
       db.adminCommand( { setFeatureCompatibilityVersion: "3.4" } )
 
 
-The first command will return the current value of the ``featureCompatibilityVersion`` parameter. The second command will set the parameter to 3.4 (required to upgrade to MongoDB 3.6).
+The first command will return the current value of the `featureCompatibilityVersion parameter. The second command will set the parameter to 3.4 (required to upgrade to MongoDB 3.6).
 
 
 # Troubleshooting
