@@ -3,7 +3,7 @@
 #
 # UniFi contoller is used to administer Ubiquiti wireless access points
 #
-FROM ubuntu:latest
+FROM ubuntu:xenial
 MAINTAINER dmreiland@unixsherpa.com
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -15,11 +15,13 @@ RUN mkdir -p /usr/lib/unifi/data && \
     echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
     add-apt-repository ppa:webupd8team/java && \
     echo "deb http://www.ubnt.com/downloads/unifi/debian unifi-5.6 ubiquiti" > /etc/apt/sources.list.d/ubiquity.list && \
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 06E85760C0A52C50 && \    echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" >> /etc/apt/sources.list.d/ubiquity.list && \
+    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 06E85760C0A52C50 && \
+    echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" >> /etc/apt/sources.list.d/ubiquity.list && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927 && \
     apt-get update -q -y && \
     apt-get install -q -y mongodb-org oracle-java8-installer && \
     apt-get install -q -y unifi && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/oracle-jdk8-installer && \
     mv /usr/bin/mongod /usr/bin/mongod.bin
