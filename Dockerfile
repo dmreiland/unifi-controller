@@ -46,6 +46,6 @@ COPY scripts/mongod /usr/bin/mongod.sh
 COPY scripts/mongod.conf /etc/mongod.conf
 
 VOLUME /usr/lib/unifi/data
-EXPOSE  8443 8080 27117 3478/udp
+EXPOSE  8443/tcp 8080/tcp 27117/tcp 3478/udp 8883/tcp 6789/tcp
 WORKDIR /usr/lib/unifi
 ENTRYPOINT ["/bin/bash", "/usr/local/bin/init.sh"]
