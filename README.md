@@ -53,11 +53,12 @@ Long Term Support version of the UniFi controller (includes support for legacy d
 It's a Docker container -- just run it like you would any other.
 
     docker run -d \
-    -p 22:22 \
-    -p 8080:8080 \
-    -p 8443:8443 \
-    -p 37117:27117 \
+    -p 8080:8080/tcp \
+    -p 8443:8443/tcp \
+    -p 37117:27117/tcp \
     -p 3478:3478/udp \
+    -p 6789:6789/tcp \
+    -p 8883:8883/tcp \
     -v /local/data:/usr/lib/unifi/data \
     --name unifi dmreiland/unifi-controller:latest
 
