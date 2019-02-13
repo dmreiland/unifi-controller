@@ -27,6 +27,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN mkdir -p /usr/lib/unifi/data && \
   	touch /usr/lib/unifi/data/.unifidatadir && \
     apt-get update -q -y && \
+    apt-get install -q -y apt-transport-https && \
     apt-get install -q -y apt-utils lsb-release curl wget rsync software-properties-common python-software-properties && \
     echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
     add-apt-repository ppa:webupd8team/java && \
