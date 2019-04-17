@@ -28,18 +28,18 @@ RUN mkdir -p /usr/lib/unifi/data && \
   	touch /usr/lib/unifi/data/.unifidatadir && \
     apt-get update -q -y && \
     apt-get install -q -y apt-transport-https && \
-    apt-get install -q -y apt-utils lsb-release curl wget rsync software-properties-common python-software-properties && \
-    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-    add-apt-repository ppa:webupd8team/java && \
+    apt-get install -q -y apt-utils lsb-release curl wget rsync software-properties-common python-software-properties java-common && \
     echo "deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti" > /etc/apt/sources.list.d/ubiquity.list && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 06E85760C0A52C50 && \
     echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" >> /etc/apt/sources.list.d/ubiquity.list && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6 && \
+    wget -O /tmp/amazon-corretto.deb https://d3pxv6yz143wms.cloudfront.net/8.212.04.1/java-1.8.0-amazon-corretto-jdk_8.212.04-1_amd64.deb && \
+    dpkg --install /tmp/amazon-corretto.deb && \
+    rm -f /tmp/amazon-corretto.deb && \
     apt-get update -q -y && \
-    apt-get install -q -y mongodb-org oracle-java8-installer && \
+    apt-get install -q -y mongodb-org && \
     apt-get install -q -y unifi && \
     rm -rf /var/lib/apt/lists/* && \
-    rm -rf /var/cache/oracle-jdk8-installer && \
     mv /usr/bin/mongod /usr/bin/mongod.bin
 
 COPY scripts/init.sh /usr/local/bin/init.sh
